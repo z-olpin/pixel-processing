@@ -1,0 +1,11 @@
+main {
+    padding: 2rem;
+}
+
+canvas, button {
+    margin-top: 2rem;
+}
+
+button {
+    margin-right: 0.5rem;
+}
