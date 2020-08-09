@@ -1,6 +1,35 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+const chunk = (array, chunkSize) => {
+  let arr = []
+  for (let i = 0; i < array.length; i++) {
+    if (i % chunkSize === 0) arr.push([array[i]])
+    else arr[arr.length - 1].push(array[i])
+  }
+  return arr
+}
+
+const shuffleArray = (arr) => {
+  newArr = []
+  while (arr.length) {
+    let targetInd = Math.floor(Math.random() * arr.length)
+    newArr.push(arr[targetInd])
+    arr.splice(targetInd, 1)
+  }
+  return newArr
+}
+
+const shuffledRgbGroups = () => {
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  let data = imgData.data
+  let chunkedShuffledFlat = shuffleArray(chunk(data, 4)).flat()
+  for (let i = 0; i < data.length; i++) {
+    data[i] = chunkedShuffledFlat[i]
+  }
+  ctx.putImageData(imgData, 0, 0)
+}
+
 const swapChannels = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
@@ -46,7 +75,9 @@ img.src = './img/hallway.jpg'
 img.addEventListener("load", () => {
   const inv = document.querySelector('#invert')
   const swap = document.querySelector('#swapChannels')
+  const shuffleEm = document.querySelector('#shuffleEm')
   draw(img)
   inv.addEventListener('click', () => invert())
   swap.addEventListener('click', () => swapChannels())
+  shuffleEm.addEventListener('click', () => shuffledRgbGroups())
 })
