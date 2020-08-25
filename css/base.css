@@ -447,14 +447,59 @@ abbr[title] {
         M A I N
 =============================================== */
 
+:root {
+  background-color: #f4f2ee;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 main {
   padding: 2rem;
 }
 
-canvas, button {
-  margin-top: 2rem;
+canvas, img, button {
+  margin: 1rem;
+}
+
+canvas, img {
+  display: block;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+h1 {
+  margin: 1rem 1rem 1.5rem;
 }
 
 button {
-  margin-right: 0.5rem;
+  background-color: #222;
+  color: #eee;
+  border: 0;
+  border-radius: 6px;
+  padding: 0.7rem 1rem 0.5rem;
+}
+
+button:active {
+  background-color: rgb(78, 80, 80);
+  color: #ddd;
+}
+
+@media screen and (max-width: 500px) {
+  .flex.col {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-shrink: 1;
+  }
+
+  button {
+    margin: 0.3rem 0.2rem;
+    padding: auto;
+  }
 }

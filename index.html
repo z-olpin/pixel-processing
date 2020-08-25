@@ -12,12 +12,18 @@
 
 <body>
   <main>
-    <img src="img/hallway.jpg">
-    <canvas></canvas>
-    <div>
-      <button id="invert">Invert</button>
-      <button id="swapChannels">swapChannels</button>
-      <button id="shuffleEm">shuffle Em</button>
+    <h1>Canvas Pixel Manipulation Experiments</h1>
+      <div class="flex">
+        <img src="img/hallway.jpg">
+      </div>
+      <div class="flex row">
+        <canvas></canvas>
+        <div class="flex col">
+          <button id="invert">INVERT</button>
+          <button id="swapChannels">SWAP R/B</button>
+          <button id="shuffleEm">SHUFFLE</button>
+        </div>
+      </div>
     </div>
   </main>
   <script src="js/main.js"></script>
