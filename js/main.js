@@ -1,6 +1,19 @@
+// TODO: Re shuffling being hideously slow...
+// The chunking not actually so bad on its own.
+// (Although still interested to try lodash or compare to Numpy/itertools)
+// But trying to store that many arrays in mem might be major
+// slowdown for shuffleArray. Alternatively, shuffleArray might
+// itself be the problem. (e.g. splicing that many times...)
+
+// 1. Try shuffling an unchuncked array to narrow it down. (See line #42)
+// 2. Instead of slicing, just restrict the selection range when adding to new array. (see line #32)
+// 3. Compare chunking to lodash/numpy/itertools.
+// 4. Do on backend instead.
+
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+// ~ 38ms
 const chunk = (array, chunkSize) => {
   let arr = []
   for (let i = 0; i < array.length; i++) {
@@ -10,6 +23,7 @@ const chunk = (array, chunkSize) => {
   return arr
 }
 
+// ~ 5098ms (!!)
 const shuffleArray = (arr) => {
   newArr = []
   while (arr.length) {
@@ -20,6 +34,7 @@ const shuffleArray = (arr) => {
   return newArr
 }
 
+// ~ 20 - 50ms after subtracting shuffleArray
 const shuffledRgbGroups = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
@@ -30,6 +45,7 @@ const shuffledRgbGroups = () => {
   ctx.putImageData(imgData, 0, 0)
 }
 
+// ~23ms
 const swapChannels = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
@@ -46,7 +62,7 @@ const swapChannels = () => {
   ctx.putImageData(imgData, 0, 0);
 }
 
-
+// ~ 23ms
 const invert = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
