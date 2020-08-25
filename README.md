@@ -3,13 +3,13 @@
 E.g...
 
 ### Original
-![Original]('img/original.png)
+<img src='./img/original.png' width='400px' alt='original' />
 
 ### Shuffled
-![Shuffled]('img/shuffled.png)
+<img src='./img/shuffled.png' width='400px' alt='shuffled' />
 
 ### R/B Channel Swapped
-![Swapped]('img/swapped.png)
+<img src='./img/swapped.png' width='400px' alt='swapped' />
 
 ### Inverted
-![Inverted]('img/inverted.png)
+<img src='./img/inverted.png' width='400px' alt='inverted' />
