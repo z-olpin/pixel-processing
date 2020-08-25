@@ -68,7 +68,6 @@ const invert = () => {
   let data = imgData.data
   let newData = []
 
-  // invert
   for (let j = 0; j < data.length; j += 4) {
     newData.push(255 - data[j], 255 - data[j+1], 255 - data[j+2], 255)
   }
@@ -86,14 +85,24 @@ const draw = img => {
   ctx.drawImage(img, 0, 0)
 }
 
+const chunk = (array, chunkSize) => {
+  let arr = []
+  for (let i = 0; i < array.length; i++) {
+    if (i % chunkSize === 0) arr.push([array[i]])
+    else arr[arr.length - 1].push(array[i])
+  }
+  return arr
+}
+
 const img = new Image()
 img.src = './img/hallway.jpg'
-img.addEventListener("load", () => {
+
+img.addEventListener('load', () => {
   const inv = document.querySelector('#invert')
   const swap = document.querySelector('#swapChannels')
-  const shuffleEm = document.querySelector('#shuffleEm')
+  const shuffle = document.querySelector('#shuffleEm')
   draw(img)
-  inv.addEventListener('click', () => invert())
-  swap.addEventListener('click', () => swapChannels())
-  shuffleEm.addEventListener('click', () => shuffledRgbGroups())
+  inv.addEventListener('click', invert)
+  swap.addEventListener('click', swapChannels)
+  shuffle.addEventListener('click', shuffledRgbGroups)
 })
