@@ -1,6 +1,7 @@
 // Todo:
-// 1. Try doing this on backend. Would speedup just be outweighed by network request time?
-// 2. Compare shuffle against Fisher-Yeates / whatever e.g. python random module or like lodash use?
+// 1. Add custom swaps, pixel sort, glitches, segmentation, tracing.
+// 2. Try doing this on backend? Would speedup just be outweighed by network request time?
+// 3. Compare shuffle against Fisher-Yeates / whatever e.g. python random module or like lodash use?
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
