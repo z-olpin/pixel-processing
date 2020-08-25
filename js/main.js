@@ -1,52 +1,41 @@
-// TODO: Re shuffling being hideously slow...
-// The chunking not actually so bad on its own.
-// (Although still interested to try lodash or compare to Numpy/itertools)
-// But trying to store that many arrays in mem might be major
-// slowdown for shuffleArray. Alternatively, shuffleArray might
-// itself be the problem. (e.g. splicing that many times...)
-
-// 1. Try shuffling an unchuncked array to narrow it down. (See line #42)
-// 2. Instead of slicing, just restrict the selection range when adding to new array. (see line #32)
-// 3. Compare chunking to lodash/numpy/itertools.
-// 4. Do on backend instead.
+// Todo:
+// 1. Try doing this on backend. Would speedup just be outweighed by network request time?
+// 2. Compare shuffle against Fisher-Yeates / whatever e.g. python random module or like lodash use?
 
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
-// ~ 38ms
-const chunk = (array, chunkSize) => {
-  let arr = []
-  for (let i = 0; i < array.length; i++) {
-    if (i % chunkSize === 0) arr.push([array[i]])
-    else arr[arr.length - 1].push(array[i])
+// ~ 12ms!
+const shuff = shuffleInPlaceIgnoringAlphaValues = (arr) => {
+  for (let i = 0; i < arr.length; i++) {
+    // Every 4th index is an alpha value and should be 255. Don't change those.
+    if (i % 4 !== 3) {
+      // Selection range shrinks by one from left every loop
+      // e.g. [0, 1, 2, 3] -> [1, 2, 3] -> [2, 3] -> [3]
+      let randIndInRange = Math.floor(Math.random() * arr.length - 1) + 1
+        // If selection is on 4th index (an alpha value), re-select.
+        while (randIndInRange % 4 == 3) {
+          randIndInRange = Math.floor(Math.random() * arr.length - 1) + 1
+        }
+      // swap i and random index
+      let swap = arr[i]
+      arr[i] = arr[randIndInRange]
+      arr[randIndInRange] = swap
+    }
   }
   return arr
 }
 
-// ~ 5098ms (!!)
-const shuffleArray = (arr) => {
-  newArr = []
-  while (arr.length) {
-    let targetInd = Math.floor(Math.random() * arr.length)
-    newArr.push(arr[targetInd])
-    arr.splice(targetInd, 1)
-  }
-  return newArr
-}
-
-// ~ 20 - 50ms after subtracting shuffleArray
-const shuffledRgbGroups = () => {
+// ~ 12ms
+const shufflePixels = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
-  let chunkedShuffledFlat = shuffleArray(chunk(data, 4)).flat()
-  for (let i = 0; i < data.length; i++) {
-    data[i] = chunkedShuffledFlat[i]
-  }
+  data = shuff(data)
   ctx.putImageData(imgData, 0, 0)
 }
 
 // ~23ms
-const swapChannels = () => {
+const swap = swapRedAndBlueChannels = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
   let newData = []
@@ -63,7 +52,7 @@ const swapChannels = () => {
 }
 
 // ~ 23ms
-const invert = () => {
+const invert = invertAllPointsIgnoringAlphaValues = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
   let newData = []
@@ -85,24 +74,15 @@ const draw = img => {
   ctx.drawImage(img, 0, 0)
 }
 
-const chunk = (array, chunkSize) => {
-  let arr = []
-  for (let i = 0; i < array.length; i++) {
-    if (i % chunkSize === 0) arr.push([array[i]])
-    else arr[arr.length - 1].push(array[i])
-  }
-  return arr
-}
-
 const img = new Image()
 img.src = './img/hallway.jpg'
 
 img.addEventListener('load', () => {
-  const inv = document.querySelector('#invert')
-  const swap = document.querySelector('#swapChannels')
-  const shuffle = document.querySelector('#shuffleEm')
+  const invertEm = document.querySelector('#invert')
+  const swapEm = document.querySelector('#swapChannels')
+  const shuffleEm = document.querySelector('#shuffleEm')
   draw(img)
-  inv.addEventListener('click', invert)
-  swap.addEventListener('click', swapChannels)
-  shuffle.addEventListener('click', shuffledRgbGroups)
+  invertEm.addEventListener('click', invert)
+  swapEm.addEventListener('click', swap)
+  shuffleEm.addEventListener('click', shufflePixels)
 })
