@@ -15,7 +15,6 @@ html {
   color: #222;
   font-size: 1em;
   line-height: 1.4;
-  -webkit-text-size-adjust: 100%;
 }
 
 
@@ -508,6 +507,10 @@ button:active {
 }
 
 @media screen and (max-width: 750px) {
+
+  img {
+    max-width: 90vw;
+  }
 
   .col {
     flex-direction: row;

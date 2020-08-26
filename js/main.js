@@ -68,15 +68,16 @@ const uploadHandler = () => {
 }
 
 const draw = () => {
-  URL.revokeObjectURL(img.src)
   if (img.width > 1000) img.width = 1000
   canvas.height = img.height;
   canvas.width = img.width;
   img.style.maxWidth = `${img.width}px`
   canvas.style.maxWidth = `${img.width}px`
   ctx.drawImage(img, 0, 0, img.width, img.height)
+  URL.revokeObjectURL(img.src)
 }
 
+if (img.complete) draw()
 img.addEventListener('load', draw)
 upload.addEventListener('change', uploadHandler)
 invertEm.addEventListener('click', invert)
