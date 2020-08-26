@@ -344,7 +344,6 @@ template {
 abbr[title] {
   border-bottom: none; /* 1 */
   text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
 }
 
 /*
@@ -465,6 +464,7 @@ canvas, img {
 }
 
 .flex {
+  justify-content: left;
   display: flex;
   flex-wrap: wrap;
 }
@@ -476,6 +476,22 @@ canvas, img {
 
 h1 {
   margin: 1rem 1rem 1.5rem;
+}
+
+label {
+  font-size: 1.2rem;
+  margin: 0.5rem;
+}
+
+input {
+  margin: 0.5rem
+}
+
+#upload-container {
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 button {
@@ -491,15 +507,26 @@ button:active {
   color: #ddd;
 }
 
-@media screen and (max-width: 500px) {
-  .flex.col {
+@media screen and (max-width: 750px) {
+
+  .col {
     flex-direction: row;
     flex-wrap: nowrap;
-    flex-shrink: 1;
+  }
+
+  .flex {
+    justify-content: center;
   }
 
   button {
     margin: 0.3rem 0.2rem;
-    padding: auto;
+  }
+
+  input {
+    width: 15rem;
+  }
+
+  #upload-container {
+    margin: 0 auto;
   }
 }
