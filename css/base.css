@@ -1,15 +1,8 @@
-/*! HTML5 Boilerplate v8.0.0 | MIT License | https://html5boilerplate.com/ */
+/* ********************************
+********** R E S E T S ************
+**********************************/
 
 /* base.css 2.1.0 | MIT License | https://github.com/h5bp/main.css#readme */
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
-
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
 
 html {
   color: #222;
@@ -423,16 +416,6 @@ abbr[title] {
   clear: both;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-  /* Style adjustments for viewports that meet the condition */
-}
-
 @media print,
   (-webkit-min-device-pixel-ratio: 1.25),
   (min-resolution: 1.25dppx),
@@ -440,16 +423,97 @@ abbr[title] {
   /* Style adjustments for high resolution devices */
 }
 
-
 /* =============================================
-        M A I N
+        CUSTOM
 =============================================== */
 
-:root {
-  background-color: #f4f2ee;
+:root, html {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: Helvetica, Arial, sans-serif;
+  color: #333333;
+  background-color: #f4f2ee;
+  box-sizing: border-box;
+  width: 92vw;
+  margin: 1rem auto;
 }
 
 main {
-  padding: 2rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 1rem;
+  justify-content: center;
+}
+
+h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+#transformations {
+  padding: 0.5rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#transformations > * {
+  margin: 0.5rem 0;
+}
+
+button {
+  margin: 0 0.75rem 0 0;
+}
+
+#swapChannels {
+  margin-left: 0.5rem;
+}
+
+#img-container {
+  max-width: 650px;
+}
+
+img, canvas {
+  box-sizing: border-box;
+  border: 8px solid #333;
+}
+
+#image-upload {
+  width: 9em;
+  color: transparent;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  font-size: 12px;
+}
+
+img {
+  flex-grow: 0;
+  flex-shrink: 0;
+  max-width: 600px;
+  height: auto;
+}
+
+canvas, img {
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 800px) {
+  img {
+    max-width: 100%;
+  }
+
+  canvas, img {
+    margin-top: 0.5rem;
+  }
 }

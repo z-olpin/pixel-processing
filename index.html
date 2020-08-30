@@ -6,23 +6,47 @@
   <title>Canvas API pixel experiments</title>
   <meta name="author" content="Zachary Olpin">
   <meta name="description" content="Canvas API experiments">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png"/>
-  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/base.min.css">
 </head>
 
 <body>
+    <h1>Pixel Experiments</h1>
   <main>
-    <h1>Canvas Pixel Manipulation Experiments</h1>
-      <img src="./img/hallway.jpg"/>
-      <canvas></canvas>
+    <figure id="img-container">
+      <img src="./img/reef.jpg" alt="Image by Coral Morphologic">
+      <figcaption>Image courtesy <a href="http://www.coralmorphologic.com/">Coral Morphologic</a></figcaption>
+    </figure>
+    <div id="transformations">
+      <h2>Pixel Transformations</h2>
+      <div class="transformations-group">
+        <select id="channel1">
+          <option value="red">RED</option>
+          <option value="green">GREEN</option>
+          <option value="blue">BLUE</option>
+        </select>
+        ⇄
+        <select id="channel2">
+          <option value="green">GREEN</option>
+          <option value="blue">BLUE</option>
+          <option value="red">RED</option>
+        </select>
+        <button id="swapChannels">SWAP</button>
+      </div>
+      <div class="transformations-group">
         <button id="invert">INVERT</button>
-        <button id="swapChannels">SWAP R/B</button>
         <button id="shuffleEm">SHUFFLE</button>
-      <label for="image-upload">Try it with your own photo!</label>
-      <input id="image-upload" type="file" accept="image/*"/>
+        <button id="reset">RESET</button>
+      </div>
+      <div id="upload-container">
+        <label for="image-upload">Try your own!</label>
+        <input id="image-upload" type="file" accept="image/*"/>
+      </div>
+    </div>
+      <canvas></canvas>
   </main>
-  <script src="js/main.js"></script>
+  <script src="js/main.pile.js"></script>
 </body>
 
 </html>
