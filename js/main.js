@@ -4,9 +4,10 @@ const invertEm = document.querySelector('#invert')
 const swapEm = document.querySelector('#swapChannels')
 const shuffleEm = document.querySelector('#shuffleEm')
 const upload = document.querySelector('input')
+const resetButton = document.querySelector('#reset')
 const img = document.querySelector('img')
 
-const shuff = shuffleInPlaceIgnoringAlphaValues = (arr) => {
+const shuffle = shuffleInPlaceIgnoringAlphaValues = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     // Every 4th index is an alpha value and should be 255. Don't change those.
     if (i % 4 !== 3) {
@@ -29,25 +30,26 @@ const shuff = shuffleInPlaceIgnoringAlphaValues = (arr) => {
 const shufflePixels = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
-  data = shuff(data)
+  data = shuffle(data)
   ctx.putImageData(imgData, 0, 0)
 }
 
-const swap = swapRedAndBlueChannels = () => {
+const swap = (channel1, channel2) => {
+  const colors = ['red', 'green', 'blue']
+  const swap1 =  colors.indexOf(channel1)
+  const swap2 =  colors.indexOf(channel2)
+  if (swap1 < 0 || swap2 < 0) throw new Error('Invalid Arguments')
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
-  let newData = []
 
-  for (let j = 0; j < data.length; j += 4) {
-    newData.push(data[j+2], data[j+1], data[j], 255)
-  }
-  for (let i = 0; i < data.length; i++) {
-    data[i] = newData[i]
+  for (let i = 0; i < data.length; i += 4) {
+    let temp = data[i + swap1]
+    data[i + swap1] = data[i + swap2]
+    data[i + swap2] = temp
   }
   ctx.putImageData(imgData, 0, 0);
 }
 
-// ~ 23ms
 const invert = invertAllPointsIgnoringAlphaValues = () => {
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height)
   let data = imgData.data
@@ -78,5 +80,8 @@ if (img.complete) draw()
 img.addEventListener('load', draw)
 upload.addEventListener('change', uploadHandler)
 invertEm.addEventListener('click', invert)
-swapEm.addEventListener('click', swap)
+swapEm.addEventListener('click', () => {
+  swap(document.querySelector('#channel1').value, document.querySelector('#channel2').value)
+})
 shuffleEm.addEventListener('click', shufflePixels)
+resetButton.addEventListener('click', draw)
