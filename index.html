@@ -8,14 +8,14 @@
   <meta name="description" content="Canvas API experiments">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.png"/>
-  <link rel="stylesheet" href="css/base.min.css">
+  <link rel="stylesheet" href="css/base.css">
 </head>
 
 <body>
     <h1>Pixel Experiments</h1>
   <main>
     <figure id="img-container">
-      <img src="./img/reef.jpg" alt="Image by Coral Morphologic">
+      <img id="source-image" src="./img/reef.jpg" alt="Image by Coral Morphologic">
       <figcaption>Image courtesy <a href="http://www.coralmorphologic.com/">Coral Morphologic</a></figcaption>
     </figure>
     <div id="transformations">
@@ -44,9 +44,9 @@
         <input id="image-upload" type="file" accept="image/*"/>
       </div>
     </div>
-      <canvas></canvas>
+      <canvas id="canvas"></canvas>
   </main>
-  <script src="js/main.pile.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
