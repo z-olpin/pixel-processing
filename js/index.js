@@ -1,10 +1,11 @@
-import { shufflePixels, invert, swap } from './transformations'
+import { shufflePixels, invert, swap, sortPixels } from './transformations';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 const invertEm = document.getElementById('invert');
 const swapEm = document.getElementById('swapChannels');
 const shuffleEm = document.getElementById('shuffleEm');
+const sortButton = document.getElementById('sortEm');
 const upload = document.getElementById('image-upload');
 const resetButton = document.getElementById('reset');
 const img = document.getElementById('source-image');
@@ -30,5 +31,6 @@ invertEm.addEventListener('click', () => invert(canvas, ctx));
 swapEm.addEventListener('click', () => {
   swap(canvas, ctx, document.querySelector('#channel1').value, document.querySelector('#channel2').value);
 })
+sortButton.addEventListener('click', () => sortPixels(canvas, ctx));
 shuffleEm.addEventListener('click', () => shufflePixels(canvas, ctx));
 resetButton.addEventListener('click', draw);
