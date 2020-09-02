@@ -5,7 +5,9 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel index.html"
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
+    "deploy:gh": "parcel build index.html && git subtree push --prefix dist origin gh-pages"
   },
   "repository": {
     "type": "git",
