@@ -56,25 +56,28 @@ ctx.putImageData(imgData, 0, 0);
 }
 
 const sortPixels = (canvas, ctx) => {
-  ctx.imageSmoothingEnabled = false;
+  ctx.imageSmoothingEnabled = false
+  console.time('start')
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let data = imgData.data;
 
   let newData = new Uint32Array(data.length / 4);
 
   for (let i=0; i < data.length; i++) {
-    let checkpoint =  i * 4;
+    let checkpoint =  i * 4
     newData[i]= data[checkpoint] << 16 | data[checkpoint + 1] << 8 | data[checkpoint + 2];
   }
 
   newData.sort((a, b) => a - b);
 
-  for (const [i, n] of newData.entries()) {
-    let checkpoint = i * 4;
+  for (let i in newData) {
+    let checkpoint = i * 4
+    let n = newData[i]
     data[checkpoint] = n >> 16;
     data[checkpoint + 1] = (n >> 8) & 0xff;
     data[checkpoint + 2] = n & 0xff;
   }
+  console.timeEnd('start')
   ctx.putImageData(imgData, 0, 0);
 }
 
