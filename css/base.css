@@ -458,7 +458,7 @@ h1, h2 {
 }
 
 #transformations {
-  padding: 0.5rem 1rem 0 1rem;
+  padding: 0.75rem 0.25rem 0 0.25rem;
   display: flex;
   flex-direction: column;
 }
@@ -468,7 +468,7 @@ h1, h2 {
 }
 
 button {
-  margin: 0 0.75rem 0 0;
+  margin: 0 0.5rem 0 0;
 }
 
 #swapChannels {
@@ -482,6 +482,10 @@ button {
 img, canvas {
   box-sizing: border-box;
   border: 8px solid #333;
+}
+
+label {
+  font-size: 1.25rem;
 }
 
 #image-upload {
