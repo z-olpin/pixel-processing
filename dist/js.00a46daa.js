@@ -194,24 +194,31 @@ var invert = function invert(canvas, ctx) {
 exports.invert = invert;
 
 var sortPixels = function sortPixels(canvas, ctx) {
+  ctx.imageSmoothingEnabled = false;
+  console.time('start');
   var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   var data = imgData.data;
-  var newData = [];
+  var newData = new Uint32Array(data.length / 4);
 
-  for (var i = 0; i < data.length; i += 4) {
-    newData.push(data[i].toString(16) + data[i + 1].toString(16) + data[i + 2].toString(16));
+  for (var i = 0; i < data.length; i++) {
+    var checkpoint = i * 4;
+    newData[i] = data[checkpoint] << 16 | data[checkpoint + 1] << 8 | data[checkpoint + 2];
   }
 
-  newData.sort();
+  newData.sort(function (a, b) {
+    return a - b;
+  });
 
   for (var _i in newData) {
-    var full = newData[_i].padStart(6, '0');
+    var _checkpoint = _i * 4;
 
-    data[_i * 4] = Number('0x' + full.substring(0, 2));
-    data[_i * 4 + 1] = Number('0x' + full.substring(2, 4));
-    data[_i * 4 + 2] = Number('0x' + full.substring(4, 6));
+    var n = newData[_i];
+    data[_checkpoint] = n >> 16;
+    data[_checkpoint + 1] = n >> 8 & 0xff;
+    data[_checkpoint + 2] = n & 0xff;
   }
 
+  console.timeEnd('start');
   ctx.putImageData(imgData, 0, 0);
 };
 
@@ -290,7 +297,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60516" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65420" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
