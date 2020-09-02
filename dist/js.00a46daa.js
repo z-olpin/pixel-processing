@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.invert = exports.swap = exports.shufflePixels = void 0;
+exports.sortPixels = exports.invert = exports.swap = exports.shufflePixels = void 0;
 
 var shuffle = function shuffle(arr) {
   for (var i = 0; i < arr.length; i++) {
@@ -192,6 +192,30 @@ var invert = function invert(canvas, ctx) {
 };
 
 exports.invert = invert;
+
+var sortPixels = function sortPixels(canvas, ctx) {
+  var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  var data = imgData.data;
+  var newData = [];
+
+  for (var i = 0; i < data.length; i += 4) {
+    newData.push(data[i].toString(16) + data[i + 1].toString(16) + data[i + 2].toString(16));
+  }
+
+  newData.sort();
+
+  for (var _i in newData) {
+    var full = newData[_i].padStart(6, '0');
+
+    data[_i * 4] = Number('0x' + full.substring(0, 2));
+    data[_i * 4 + 1] = Number('0x' + full.substring(2, 4));
+    data[_i * 4 + 2] = Number('0x' + full.substring(4, 6));
+  }
+
+  ctx.putImageData(imgData, 0, 0);
+};
+
+exports.sortPixels = sortPixels;
 },{}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -202,6 +226,7 @@ var ctx = canvas.getContext('2d');
 var invertEm = document.getElementById('invert');
 var swapEm = document.getElementById('swapChannels');
 var shuffleEm = document.getElementById('shuffleEm');
+var sortButton = document.getElementById('sortEm');
 var upload = document.getElementById('image-upload');
 var resetButton = document.getElementById('reset');
 var img = document.getElementById('source-image');
@@ -230,11 +255,14 @@ invertEm.addEventListener('click', function () {
 swapEm.addEventListener('click', function () {
   (0, _transformations.swap)(canvas, ctx, document.querySelector('#channel1').value, document.querySelector('#channel2').value);
 });
+sortButton.addEventListener('click', function () {
+  return (0, _transformations.sortPixels)(canvas, ctx);
+});
 shuffleEm.addEventListener('click', function () {
   return (0, _transformations.shufflePixels)(canvas, ctx);
 });
 resetButton.addEventListener('click', draw);
-},{"./transformations":"js/transformations.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./transformations":"js/transformations.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -262,7 +290,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59810" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60516" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -438,5 +466,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
+},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
 //# sourceMappingURL=/js.00a46daa.js.map

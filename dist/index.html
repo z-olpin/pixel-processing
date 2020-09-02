@@ -1,2 +1,53 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Canvas API pixel experiments</title><meta name="author" content="Zachary Olpin"><meta name="description" content="Canvas API experiments"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/favicon.94248890.png"><link rel="stylesheet" href="/base.3965ac11.css"></head><body> <h1>TEST3 - Pixel Experiments</h1> <main> <figure id="img-container"> <img id="source-image" src="/reef.1f42be29.jpg" alt="Image by Coral Morphologic"> <figcaption>Image courtesy <a href="http://www.coralmorphologic.com/">Coral Morphologic</a></figcaption> </figure> <div id="transformations"> <h2>Transformations</h2> <div class="transformations-group"> <select id="channel1"> <option value="red">RED</option> <option value="green">GREEN</option> <option value="blue">BLUE</option> </select> ⇄ <select id="channel2"> <option value="green">GREEN</option> <option value="blue">BLUE</option> <option value="red">RED</option> </select> <button id="swapChannels">SWAP</button> </div> <div class="transformations-group"> <button id="invert">INVERT</button> <button id="shuffleEm">SHUFFLE</button> <button id="reset">RESET</button> </div> <div id="upload-container"> <label for="image-upload">Try your own!</label> <input id="image-upload" type="file" accept="image/*"> </div> </div> <canvas id="canvas"></canvas> </main> <script src="/js.babce2f9.js"></script>
-</body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Canvas API pixel experiments</title>
+  <meta name="author" content="Zachary Olpin">
+  <meta name="description" content="Canvas API experiments">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/favicon.2e70f008.png">
+  <link rel="stylesheet" href="/base.98fd6c19.css">
+<script src="/base.98fd6c19.js"></script></head>
+
+<body>
+    <h1>Pixel Experiments</h1>
+  <main>
+    <figure id="img-container">
+      <img id="source-image" src="/reef.ef704cd5.jpg" alt="Image by Coral Morphologic">
+      <figcaption>Image courtesy <a href="http://www.coralmorphologic.com/">Coral Morphologic</a></figcaption>
+    </figure>
+    <div id="transformations">
+      <h2>Transformations</h2>
+      <div class="transformations-group">
+        <select id="channel1">
+          <option value="red">RED</option>
+          <option value="green">GREEN</option>
+          <option value="blue">BLUE</option>
+        </select>
+        ⇄
+        <select id="channel2">
+          <option value="green">GREEN</option>
+          <option value="blue">BLUE</option>
+          <option value="red">RED</option>
+        </select>
+        <button id="swapChannels">SWAP</button>
+      </div>
+      <div class="transformations-group">
+        <button id="invert">INVERT</button>
+        <button id="shuffleEm">SHUFFLE</button>
+        <button id="reset">RESET</button>
+        <button id="sortEm">SORT</button>
+      </div>
+      <div id="upload-container">
+        <label for="image-upload">Try your own!</label>
+        <input id="image-upload" type="file" accept="image/*">
+      </div>
+    </div>
+      <canvas id="canvas"></canvas>
+  </main>
+  <script src="/js.00a46daa.js"></script>
+</body>
+
+</html>
