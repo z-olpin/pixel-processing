@@ -55,4 +55,25 @@ const invert = (canvas, ctx) => {
 ctx.putImageData(imgData, 0, 0);
 }
 
-export { shufflePixels, swap, invert };
+const sortPixels = (canvas, ctx) => {
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  let data = imgData.data;
+
+  let newData = [];
+
+  for (let i=0; i < data.length; i += 4) {
+    newData.push(data[i].toString(16) + data[i + 1].toString(16) + data[i + 2].toString(16));
+  }
+
+  newData.sort();
+
+  for (let i in newData) {
+    let full = newData[i].padStart(6, '0');
+    data[i * 4] = Number('0x' + full.substring(0, 2));
+    data[i * 4 + 1] = Number('0x' + full.substring(2, 4));
+    data[i * 4 + 2] = Number('0x' + full.substring(4, 6));
+  }
+  ctx.putImageData(imgData, 0, 0);
+}
+
+export { shufflePixels, swap, invert, sortPixels };
