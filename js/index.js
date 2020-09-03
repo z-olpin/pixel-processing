@@ -1,4 +1,4 @@
-import { shufflePixels, invert, swap, sortPixels } from './transformations';
+import { shufflePixels, invert, swap, sortPixels, desaturate } from './transformations';
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
@@ -8,6 +8,7 @@ const shuffleEm = document.getElementById('shuffleEm');
 const sortButton = document.getElementById('sortEm');
 const upload = document.getElementById('image-upload');
 const resetButton = document.getElementById('reset');
+const desaturateButton = document.getElementById('desaturate');
 const img = document.getElementById('source-image');
 
 const uploadHandler = () => {
@@ -33,4 +34,5 @@ swapEm.addEventListener('click', () => {
 })
 sortButton.addEventListener('click', () => sortPixels(canvas, ctx));
 shuffleEm.addEventListener('click', () => shufflePixels(canvas, ctx));
+desaturateButton.addEventListener('click', () => desaturate(canvas, ctx));
 resetButton.addEventListener('click', draw);

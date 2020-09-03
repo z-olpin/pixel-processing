@@ -57,7 +57,6 @@ ctx.putImageData(imgData, 0, 0);
 
 const sortPixels = (canvas, ctx) => {
   ctx.imageSmoothingEnabled = false
-  console.time('start')
   let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let data = imgData.data;
 
@@ -77,8 +76,19 @@ const sortPixels = (canvas, ctx) => {
     data[checkpoint + 1] = (n >> 8) & 0xff;
     data[checkpoint + 2] = n & 0xff;
   }
-  console.timeEnd('start')
+  ctx.putImageData(imgData, 0, 0);
+  ctx.imageSmoothingEnabled = true
+}
+
+const desaturate = (canvas, ctx) => {
+  let imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  let data = imgData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+    let averageLightness = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
+    data[i] = data[i + 1] = data[i + 2] = averageLightness;
+  }
   ctx.putImageData(imgData, 0, 0);
 }
 
-export { shufflePixels, swap, invert, sortPixels };
+export { shufflePixels, swap, invert, sortPixels, desaturate };
