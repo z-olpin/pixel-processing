@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel serve index.html",
     "build": "parcel build index.html",
-    "deploy:gh": "git update-index --refresh && git diff-index --quiet HEAD -- && git subtree push --prefix dist origin gh-pages || echo '\nHeyo, yr working tree is dirty my guy. Clean it and try it again.\n'"
+    "deploy": "echo \"Deploying dist to gh-pages...\" && ./deploy.sh"
   },
   "repository": {
     "type": "git",
